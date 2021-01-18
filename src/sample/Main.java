@@ -11,7 +11,7 @@ public class Main extends Application
     public void start(Stage primaryStage) throws Exception
     {
         SampleController controller=new SampleController();
-        primaryStage.setTitle("Alon Koren");
+        primaryStage.setTitle("Gilad schweiger and Adi hahamov - Flight Gear");
         primaryStage.setScene(new Scene(controller, 1123, 480));
         primaryStage.show();
     }
