@@ -14,18 +14,14 @@
          </children></AnchorPane>
       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
          <children>
-            <SplitPane dividerPositions="0.5" prefHeight="386.0" prefWidth="731.0">
-               <items>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                     <children>
-                        <Display_ScriptController fx:id="displayScript" />
-                     </children></AnchorPane>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                     <children>
-                        <JoystickController fx:id="joystick" />
-                     </children></AnchorPane>
-               </items>
-            </SplitPane>
+          	<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="386.0" prefWidth="600.0">
+                <children>
+                  <Display_ScriptController fx:id="displayScript" />
+                </children></AnchorPane>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-color: #dfbd6a6e;" prefHeight="0.0" prefWidth="100.0" layoutX="358.0">
+                <children>
+                  <JoystickController fx:id="joystick" />
+                </children></AnchorPane>
          </children>
       </AnchorPane>
    </items>
