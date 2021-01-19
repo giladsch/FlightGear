@@ -7,9 +7,9 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Circle?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="322.0" prefWidth="384.0" type="javafx.scene.layout.Pane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" style="-fx-background-color: #dfbd6a6e;" minHeight="-Infinity" minWidth="-Infinity" prefHeight="322.0" prefWidth="384.0" type="javafx.scene.layout.Pane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Circle fx:id="outerjoystick" fill="#dcdee1" layoutX="195.0" layoutY="139.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="outerjoystick" fill="#3d495f" layoutX="195.0" layoutY="139.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fx:id="btn_joystick" layoutX="195.0" layoutY="139.0" onMouseDragged="#circleOnMouseDraggedEventHandler" onMousePressed="#circleOnMousePressedEventHandler" onMouseReleased="#circleOnMouseReleasedEventHandler" radius="50.0" stroke="BLACK" strokeType="INSIDE">
          <fill>
             <LinearGradient endX="1.0" endY="1.0">
