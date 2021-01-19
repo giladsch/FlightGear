@@ -16,14 +16,14 @@ import java.util.stream.Stream;
 
 public class Radio_ButtonsController extends Pane {
 
-    private static final String folderPath="./assets/scripts";
+    private static final String folderPath = "./assets/scripts";
 
-    Property<String> scriptProperty=new SimpleStringProperty();
-    Property<Boolean> autopilotProperty=new SimpleBooleanProperty();
-    Property<Boolean> manualProperty=new SimpleBooleanProperty();
+    Property<String> scriptProperty = new SimpleStringProperty();
+    Property<Boolean> autopilotProperty = new SimpleBooleanProperty();
+    Property<Boolean> manualProperty = new SimpleBooleanProperty();
 
     public Radio_ButtonsController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../JavaFX Components/radio_buttons.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/JavaFX Components/radio_buttons.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try {
@@ -32,31 +32,25 @@ public class Radio_ButtonsController extends Pane {
             throw new RuntimeException(exception);
         }
 
-
     }
-    public void openFileDialogue(MouseEvent mouseEvent)
-    {
-        FileChooser chooser=new FileChooser();
+
+    public void openFileDialogue(MouseEvent mouseEvent) {
+        FileChooser chooser = new FileChooser();
         chooser.setInitialDirectory(new File(folderPath));
         File file = chooser.showOpenDialog(null);
-        if(file!=null)
-        {
-            try
-            {
+        if (file != null) {
+            try {
                 Stream<String> stream = Files.lines(file.toPath());
                 StringBuilder sb = new StringBuilder();
                 stream.forEach(str -> sb.append(str).append("\n"));
                 showScript(sb.toString());
-            }
-            catch (IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private void showScript(String script)
-    {
+    private void showScript(String script) {
         scriptProperty.setValue(script);
     }
 
@@ -68,21 +62,19 @@ public class Radio_ButtonsController extends Pane {
         return scriptProperty;
     }
 
-    public void bindRadio(Property<Boolean> autopilotProperty,Property<Boolean> manualProperty)
-    {
+    public void bindRadio(Property<Boolean> autopilotProperty, Property<Boolean> manualProperty) {
         autopilotProperty.bind(this.autopilotProperty);
         manualProperty.bind(this.manualProperty);
     }
 
     @FXML
-    void autoPilotEnable(MouseEvent mouseEventvent)
-    {
+    void autoPilotEnable(MouseEvent mouseEventvent) {
         this.autopilotProperty.setValue(true);
         this.manualProperty.setValue(false);
     }
+
     @FXML
-    void autoPilotDisable(MouseEvent mouseEventvent)
-    {
+    void autoPilotDisable(MouseEvent mouseEventvent) {
         this.manualProperty.setValue(true);
         this.autopilotProperty.setValue(false);
     }

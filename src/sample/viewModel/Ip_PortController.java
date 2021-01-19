@@ -12,8 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Ip_PortController extends Pane
-{
+public class Ip_PortController extends Pane {
     @FXML
     TextField ipTextField;
     @FXML
@@ -21,10 +20,10 @@ public class Ip_PortController extends Pane
     @FXML
     Button accept;
 
-    StringProperty ipProperty,portProperty;
+    StringProperty ipProperty, portProperty;
 
     public Ip_PortController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../JavaFX Components/ip-port.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/JavaFX Components/ip-port.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
@@ -33,26 +32,24 @@ public class Ip_PortController extends Pane
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        ipProperty=new SimpleStringProperty();
-        portProperty=new SimpleStringProperty();
+        ipProperty = new SimpleStringProperty();
+        portProperty = new SimpleStringProperty();
 
     }
 
-    public void bind(StringProperty ipProperty,StringProperty portProperty){
+    public void bind(StringProperty ipProperty, StringProperty portProperty) {
         ipProperty.bind(this.ipProperty);
         portProperty.bind(this.portProperty);
     }
 
     @FXML
-    public void sendData(MouseEvent mouseEvent)
-    {
+    public void sendData(MouseEvent mouseEvent) {
         ipProperty.setValue(ipTextField.getText());
         portProperty.setValue(portTextField.getText());
     }
 
     @FXML
-    public void closeWindow(MouseEvent sendData)
-    {
-        ((Stage)this.getScene().getWindow()).close();
+    public void closeWindow(MouseEvent sendData) {
+        ((Stage) this.getScene().getWindow()).close();
     }
 }

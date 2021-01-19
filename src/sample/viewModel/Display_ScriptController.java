@@ -11,15 +11,15 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
-public class Display_ScriptController  extends Pane {
+public class Display_ScriptController extends Pane {
 
-    Property<String> scriptProperty=new SimpleStringProperty();
+    Property<String> scriptProperty = new SimpleStringProperty();
 
     @FXML
     private TextArea script;
 
     public Display_ScriptController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../JavaFX Components/display_script.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/JavaFX Components/display_script.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
@@ -30,12 +30,12 @@ public class Display_ScriptController  extends Pane {
         }
         initialize();
     }
-    private void initialize(){
+
+    private void initialize() {
         scriptProperty.addListener((observable, oldValue, newValue) -> showScript(newValue));
     }
 
-    private void showScript(String script)
-    {
+    private void showScript(String script) {
         this.script.appendText(script);
     }
 }

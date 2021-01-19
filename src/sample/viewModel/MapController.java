@@ -32,10 +32,10 @@ public class MapController extends Pane {
     Client client;
     Property<Boolean> enableProperty;
 
-    private static final String folderPath="./src/sample/CSV/";
+    private static final String folderPath = "./src/sample/CSV/";
 
     public MapController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../JavaFX Components/map.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/JavaFX Components/map.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
@@ -46,12 +46,12 @@ public class MapController extends Pane {
         }
     }
 
-    public void bind(Client client, Property<Boolean> enableProperty){
-        this.client=client;
-        this.enableProperty=enableProperty;
+    public void bind(Client client, Property<Boolean> enableProperty) {
+        this.client = client;
+        this.enableProperty = enableProperty;
 
         enableProperty.addListener((observable, oldValue, newValue) -> {
-            if (newValue){
+            if (newValue) {
                 mapCanvas.setDisable(false);
                 load.setDisable(false);
                 calc.setDisable(false);
@@ -70,53 +70,50 @@ public class MapController extends Pane {
     }
 
     @FXML
-    public void openFileDialogue(MouseEvent mouseEvent)
-    {
-        FileChooser chooser=new FileChooser();
+    public void openFileDialogue(MouseEvent mouseEvent) {
+        FileChooser chooser = new FileChooser();
         chooser.setInitialDirectory(new File(folderPath));
         File file = chooser.showOpenDialog(null);
-        if(file!=null)
-        {
+        if (file != null) {
             readCSV(file);
         }
     }
+
     @FXML
-    public void connectToServer(MouseEvent mouseEvent)
-    {
-        Ip_PortController root=new Ip_PortController();
+    public void connectToServer(MouseEvent mouseEvent) {
+        Ip_PortController root = new Ip_PortController();
         Stage stage = new Stage();
         stage.setTitle("Enter IP and Port");
         stage.setScene(new Scene(root));
         stage.show();
 
         StringProperty ipProperty = new SimpleStringProperty();
-        StringProperty portProperty=new SimpleStringProperty();
-        root.bind(ipProperty,portProperty);
+        StringProperty portProperty = new SimpleStringProperty();
+        root.bind(ipProperty, portProperty);
         portProperty.addListener((observable, oldValue, newValue) -> {
-            String ip=ipProperty.get();
-            String port=newValue;
-            this.client.connect(ip,Integer.parseInt(port));
+            String ip = ipProperty.get();
+            String port = newValue;
+            this.client.connect(ip, Integer.parseInt(port));
             mapCanvas.connectToServer(this.client);
             enableProperty.setValue(true);
 
         });
     }
-    boolean flag=false;
-    boolean isclick=false;
+
+    boolean flag = false;
+    boolean isclick = false;
     StringProperty ipProperty = new SimpleStringProperty();
-    StringProperty portProperty=new SimpleStringProperty();
-    public void selectDestination(MouseEvent mouseEvent)
-    {
-        isclick=true;
-        mapCanvas.markDestByMouse(mouseEvent.getX(),mouseEvent.getY());
-        if (flag){
-            calcPath(ipProperty.get(),portProperty.get());
+    StringProperty portProperty = new SimpleStringProperty();
+
+    public void selectDestination(MouseEvent mouseEvent) {
+        isclick = true;
+        mapCanvas.markDestByMouse(mouseEvent.getX(), mouseEvent.getY());
+        if (flag) {
+            calcPath(ipProperty.get(), portProperty.get());
         }
     }
 
-
-    public void calcPath(MouseEvent mouseEvent)
-    {
+    public void calcPath(MouseEvent mouseEvent) {
         if (!flag) {
             Ip_PortController root = new Ip_PortController();
             Stage stage = new Stage();
@@ -125,27 +122,27 @@ public class MapController extends Pane {
             stage.show();
             root.bind(ipProperty, portProperty);
             portProperty.addListener((observable, oldValue, newValue) -> {
-                String ip=ipProperty.get();
-                String port=newValue;
-                flag=true;
-                //TODO
-                calcPath(ip,port);
+                String ip = ipProperty.get();
+                String port = newValue;
+                flag = true;
+                // TODO
+                calcPath(ip, port);
             });
+        } else {
+            calcPath(ipProperty.get(), portProperty.get());
         }
-        else {
-            calcPath(ipProperty.get(),portProperty.get());
-        }
-
 
     }
 
-    private void calcPath(String ip,String port){
-        if (!isclick) return;
+    private void calcPath(String ip, String port) {
+        if (!isclick)
+            return;
         try {
-            PTMClient ptmClient=new PTMClient(ip,Integer.parseInt(port));
-            double[][] doubles =mapCanvas.getCoordinates();
-            String ans = ptmClient.sendMatrix(doubles, (int) mapCanvas.planeCanvas.getPlaneY(), (int) mapCanvas.planeCanvas.getPlaneX(),
-                     (int)mapCanvas.xCanvas.getDestY(), (int)mapCanvas.xCanvas.getDestX());
+            PTMClient ptmClient = new PTMClient(ip, Integer.parseInt(port));
+            double[][] doubles = mapCanvas.getCoordinates();
+            String ans = ptmClient.sendMatrix(doubles, (int) mapCanvas.planeCanvas.getPlaneY(),
+                    (int) mapCanvas.planeCanvas.getPlaneX(), (int) mapCanvas.xCanvas.getDestY(),
+                    (int) mapCanvas.xCanvas.getDestX());
             ptmClient.close();
             mapCanvas.showPoints(ans);
         } catch (IOException e) {

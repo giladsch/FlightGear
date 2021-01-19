@@ -22,12 +22,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.stream.Stream;
 
-public class SampleController extends SplitPane
-{
-    final Client client=new SimpleClient();
+public class SampleController extends SplitPane {
+    final Client client = new SimpleClient();
 
-    Property<Boolean> booleanProperty=new SimpleBooleanProperty();
-    Property<Boolean> enableProperty =new SimpleObjectProperty<>(false);
+    Property<Boolean> booleanProperty = new SimpleBooleanProperty();
+    Property<Boolean> enableProperty = new SimpleObjectProperty<>(false);
 
     @FXML
     MapController leftSide;
@@ -35,9 +34,8 @@ public class SampleController extends SplitPane
     @FXML
     Right_SideController rightSide;
 
-
     public SampleController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../JavaFX Components/full_app.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/JavaFX Components/full_app.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try {
@@ -48,11 +46,12 @@ public class SampleController extends SplitPane
         bind();
     }
 
-    public void bind(){
-        leftSide.bind(client,enableProperty);
+    public void bind() {
+        leftSide.bind(client, enableProperty);
         rightSide.setClient(client);
         enableProperty.addListener((observable, oldValue, newValue) -> {
-            if (newValue) rightSide.enableAll();
+            if (newValue)
+                rightSide.enableAll();
         });
     }
 }
