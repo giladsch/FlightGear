@@ -35,7 +35,7 @@ The goal in this milestone was to Build and design a GUI for the flight simulato
 For building the app, I chose to use the MVVM architecture.
 
 <p align="center">
-  <img src="/readme_images/MVVM_architecture.jpg" width="550">
+  <img src="/readme_images/MVVM_architecture.png" width="550">
 </p>
 
 <br /><br /><br /><br />
