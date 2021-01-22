@@ -92,7 +92,7 @@ public class MapDisplayer extends Pane {
         LinkedList<Index> indexs = pointCanvas.getIndexs();
         for (int i = 1; i < indexs.size(); i++) {
             double v = 90 - Math.toDegrees(Math.atan2(indexs.get(i).column - indexs.get(i - 1).column,
-                    indexs.get(i).row - indexs.get(i - 1).row)); // todo check 90-deg correct
+                    indexs.get(i).row - indexs.get(i - 1).row));
             if (v < 0)
                 v += 360;
         }
