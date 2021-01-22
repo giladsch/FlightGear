@@ -40,6 +40,7 @@ public class MapDisplayer extends Pane {
         }
         planeCanvas.planes = getPlanesImages();
         planeCanvas.currentPlane = planeCanvas.planes[0];
+        xCanvas.img = getXImage();
     }
 
     public void setMapData(File fileCSV) throws FileNotFoundException {
@@ -140,5 +141,9 @@ public class MapDisplayer extends Pane {
 
     private Image getPlanesImage(String imageName) {
         return new Image(getClass().getResourceAsStream("/sample/images/planes/plane-" + imageName + ".jpg"));
+    }
+
+    private Image getXImage() {
+        return new Image(getClass().getResourceAsStream("/sample/images/x.jpg"));
     }
 }
