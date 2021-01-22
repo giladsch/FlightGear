@@ -1,14 +1,14 @@
 package sample.viewModel;
 
-import alon.flightsim.client.Client;
+import client.Client;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import sample.Model.Index;
 import sample.view.*;
 
 import java.io.*;
-import java.net.Socket;
 import java.util.*;
 
 public class MapDisplayer extends Pane {
@@ -38,6 +38,8 @@ public class MapDisplayer extends Pane {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+        planeCanvas.planes = getPlanesImages();
+        planeCanvas.currentPlane = planeCanvas.planes[0];
     }
 
     public void setMapData(File fileCSV) throws FileNotFoundException {
@@ -125,5 +127,18 @@ public class MapDisplayer extends Pane {
 
     public double[][] getCoordinates() {
         return mapCanvas.getCoordinates();
+    }
+
+    private Image[] getPlanesImages() {
+        Image[] planesImages = new Image[8];
+
+        for (int i = 0; i < planesImages.length; i++) {
+            planesImages[i] = getPlanesImage(String.valueOf(i * 45));
+        }
+        return planesImages;
+    }
+
+    private Image getPlanesImage(String imageName) {
+        return new Image(getClass().getResourceAsStream("/sample/images/planes/plane-" + imageName + ".jpg"));
     }
 }

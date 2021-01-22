@@ -1,11 +1,9 @@
 package sample.viewModel;
 
-import alon.flightsim.FlyMain;
-import alon.flightsim.client.Client;
+import simulator.Simulator;
+import client.Client;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.SplitPane;
@@ -21,7 +19,7 @@ public class Right_SideController extends SplitPane {
     @FXML
     JoystickController joystick;
 
-    FlyMain flyMain = new FlyMain();
+    Simulator simulator = new Simulator();
     Property<Boolean> autopilotProperty = new SimpleBooleanProperty();
     Property<Boolean> manualProperty = new SimpleBooleanProperty();
 
@@ -42,7 +40,7 @@ public class Right_SideController extends SplitPane {
         autopilotProperty.addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 joystick.setDisable(true);
-                flyMain.setAutoPilot(true);
+                simulator.setAutoPilot(true);
             }
         });
         manualProperty.addListener((observable, oldValue, newValue) -> {
@@ -52,13 +50,13 @@ public class Right_SideController extends SplitPane {
                     joystick.getCurrentValues();
                 } catch (NullPointerException ignored) {
                 }
-                flyMain.setAutoPilot(false);
+                simulator.setAutoPilot(false);
             }
         });
 
         displayScript.scriptProperty.bind(radioButtons.scriptProperty);
         displayScript.scriptProperty.addListener((observable, oldValue, newValue) -> {
-            flyMain.runSimulator(newValue);
+            simulator.runSim(newValue);
         });
         radioButtons.bindRadio(autopilotProperty, manualProperty);
     }

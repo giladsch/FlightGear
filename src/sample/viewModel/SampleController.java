@@ -1,8 +1,7 @@
 package sample.viewModel;
 
-import alon.flightsim.FlyMain;
-import alon.flightsim.client.Client;
-import alon.flightsim.client.SimpleClient;
+import client.Client;
+import client.SimpleClient;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;

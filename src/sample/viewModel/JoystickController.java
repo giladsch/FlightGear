@@ -1,13 +1,10 @@
 package sample.viewModel;
 
-import alon.flightsim.client.Client;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import client.Client;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 
