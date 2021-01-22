@@ -16,8 +16,6 @@ import java.util.stream.Stream;
 
 public class Radio_ButtonsController extends Pane {
 
-    private static final String folderPath = "./assets/scripts";
-
     Property<String> scriptProperty = new SimpleStringProperty();
     Property<Boolean> autopilotProperty = new SimpleBooleanProperty();
     Property<Boolean> manualProperty = new SimpleBooleanProperty();
@@ -36,7 +34,7 @@ public class Radio_ButtonsController extends Pane {
 
     public void openFileDialogue(MouseEvent mouseEvent) {
         FileChooser chooser = new FileChooser();
-        chooser.setInitialDirectory(new File(folderPath));
+        chooser.setInitialDirectory(new File("/"));
         File file = chooser.showOpenDialog(null);
         if (file != null) {
             try {

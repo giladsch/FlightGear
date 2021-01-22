@@ -32,8 +32,6 @@ public class MapController extends Pane {
     Client client;
     Property<Boolean> enableProperty;
 
-    private static final String folderPath = "./src/sample/CSV/";
-
     public MapController() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/JavaFX Components/map.fxml"));
         fxmlLoader.setRoot(this);
@@ -72,7 +70,7 @@ public class MapController extends Pane {
     @FXML
     public void openFileDialogue(MouseEvent mouseEvent) {
         FileChooser chooser = new FileChooser();
-        chooser.setInitialDirectory(new File(folderPath));
+        chooser.setInitialDirectory(new File("/"));
         File file = chooser.showOpenDialog(null);
         if (file != null) {
             readCSV(file);
