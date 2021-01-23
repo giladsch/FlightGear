@@ -3,30 +3,30 @@ package app.view;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import app.model.Cell;
+import app.model.Point;
 import java.util.LinkedList;
 
-public class CellComponent extends Canvas implements Redrawable {
+public class PointsOnMapComponent extends Canvas implements Redrawable {
 
     int startX;
     int startY;
     double widthBlock;
     double heightBlock;
     String[] moves = null;
-    LinkedList<Cell> cells = new LinkedList<>();
+    LinkedList<Point> points = new LinkedList<>();
 
-    public void showPoints(String movesSt, int startX, int startY) {
+    public void showPointsOnMap(String movesSt, int startX, int startY) {
         moves = movesSt.split(",");
         this.startX = startX;
         this.startY = startY;
 
-        cells.clear();
+        points.clear();
 
         double x = startX;
         double y = startY;
 
         for (int i = 0; i < moves.length; i++) {
-            cells.add(new Cell((int) x, (int) y * -1));
+            points.add(new Point((int) x, (int) y * -1));
             String move = moves[i];
             switch (move) {
                 case "Left": {
@@ -47,11 +47,11 @@ public class CellComponent extends Canvas implements Redrawable {
                 }
             }
         }
-        cells.add(new Cell((int) x, (int) y * -1));
+        points.add(new Point((int) x, (int) y * -1));
     }
 
-    public LinkedList<Cell> getCells() {
-        return cells;
+    public LinkedList<Point> getPoints() {
+        return points;
     }
 
     @Override

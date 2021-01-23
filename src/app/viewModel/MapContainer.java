@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import app.model.Cell;
+import app.model.Point;
 import app.view.*;
 
 import java.io.*;
@@ -22,7 +22,7 @@ public class MapContainer extends Pane {
     XButton xButton;
 
     @FXML
-    CellComponent cellComponent;
+    PointsOnMapComponent pointsOnMapComponent;
 
     double initX, initY;
     double distance;
@@ -80,20 +80,21 @@ public class MapContainer extends Pane {
         mapComponent.setCoordinates(coordinates);
         planeComponent.setBlockSize(widthBlock, heightBlock);
         xButton.setBlockSize(widthBlock, heightBlock);
-        cellComponent.setBlockSize(widthBlock, heightBlock);
+        pointsOnMapComponent.setBlockSize(widthBlock, heightBlock);
     }
 
     public void redraw() {
         mapComponent.redraw();
     }
 
-    public void showPoints(String movesSt) {
-        cellComponent.showPoints(movesSt, (int) planeComponent.getPlaneX(), (int) planeComponent.getPlaneY());
-        cellComponent.redraw();
-        LinkedList<Cell> cells = cellComponent.getCells();
-        for (int i = 1; i < cells.size(); i++) {
-            double v = 90 - Math.toDegrees(
-                    Math.atan2(cells.get(i).column - cells.get(i - 1).column, cells.get(i).row - cells.get(i - 1).row));
+    public void showPointsOnMap(String movesSt) {
+        pointsOnMapComponent.showPointsOnMap(movesSt, (int) planeComponent.getPlaneX(),
+                (int) planeComponent.getPlaneY());
+        pointsOnMapComponent.redraw();
+        LinkedList<Point> points = pointsOnMapComponent.getPoints();
+        for (int i = 1; i < points.size(); i++) {
+            double v = 90 - Math.toDegrees(Math.atan2(points.get(i).column - points.get(i - 1).column,
+                    points.get(i).row - points.get(i - 1).row));
             if (v < 0)
                 v += 360;
         }

@@ -142,7 +142,7 @@ public class MapController extends Pane {
                     (int) mapContainer.planeComponent.getPlaneX(), (int) mapContainer.xButton.getDestY(),
                     (int) mapContainer.xButton.getDestX());
             solver.close();
-            mapContainer.showPoints(ans);
+            mapContainer.showPointsOnMap(ans);
         } catch (IOException e) {
             e.printStackTrace();
         }
