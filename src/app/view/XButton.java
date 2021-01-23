@@ -1,10 +1,10 @@
-package sample.view;
+package app.view;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-public class XCanvas extends Canvas implements Redrawable {
+public class XButton extends Canvas implements Redrawable {
 
     public Image img;
 

@@ -1,13 +1,10 @@
-package sample.view;
+package app.view;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
-public class PlaneCanvas extends Canvas implements Redrawable {
+public class PlaneComponent extends Canvas implements Redrawable {
 
     public Image[] planes;
     public Image currentPlane;

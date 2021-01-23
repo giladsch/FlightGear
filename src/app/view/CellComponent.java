@@ -1,37 +1,32 @@
-package sample.view;
-
+package app.view;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import sample.Model.Index;
-
-import java.util.Arrays;
+import app.model.Cell;
 import java.util.LinkedList;
 
-public class PointCanvas extends Canvas implements Redrawable{
+public class CellComponent extends Canvas implements Redrawable {
 
     int startX;
     int startY;
     double widthBlock;
     double heightBlock;
-    String[] moves=null;
-    LinkedList<Index> indexs=new LinkedList<>();
+    String[] moves = null;
+    LinkedList<Cell> cells = new LinkedList<>();
 
-
-    public void showPoints(String movesSt,int startX,int startY)
-    {
+    public void showPoints(String movesSt, int startX, int startY) {
         moves = movesSt.split(",");
-        this.startX=startX;
-        this.startY=startY;
+        this.startX = startX;
+        this.startY = startY;
 
-        indexs.clear();
+        cells.clear();
 
         double x = startX;
         double y = startY;
 
         for (int i = 0; i < moves.length; i++) {
-            indexs.add(new Index((int) x, (int) y * -1));
+            cells.add(new Cell((int) x, (int) y * -1));
             String move = moves[i];
             switch (move) {
                 case "Left": {
@@ -52,30 +47,27 @@ public class PointCanvas extends Canvas implements Redrawable{
                 }
             }
         }
-        indexs.add(new Index((int) x, (int) y * -1));
+        cells.add(new Cell((int) x, (int) y * -1));
     }
 
-    public LinkedList<Index> getIndexs() {
-        return indexs;
+    public LinkedList<Cell> getCells() {
+        return cells;
     }
 
     @Override
-    public void setBlockSize(double widthBlock,double heightBlock){
-        this.heightBlock=heightBlock;
-        this.widthBlock=widthBlock;
+    public void setBlockSize(double widthBlock, double heightBlock) {
+        this.heightBlock = heightBlock;
+        this.widthBlock = widthBlock;
     }
-
 
     @Override
     public void redraw() {
         GraphicsContext gc = this.getGraphicsContext2D();
-        gc.clearRect(0,0,this.getWidth(),this.getHeight());
-        if (moves!=null)
-        {
+        gc.clearRect(0, 0, this.getWidth(), this.getHeight());
+        if (moves != null) {
             double x = startX;
             double y = startY;
-            for (int i = 0; i < moves.length; i++)
-            {
+            for (int i = 0; i < moves.length; i++) {
                 String move = moves[i];
                 gc.setStroke(Color.BLACK);
                 switch (move) {
