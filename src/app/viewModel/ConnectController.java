@@ -1,4 +1,4 @@
-package sample.viewModel;
+package app.viewModel;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Ip_PortController extends Pane {
+public class ConnectController extends Pane {
     @FXML
     TextField ipTextField;
     @FXML
@@ -22,8 +22,8 @@ public class Ip_PortController extends Pane {
 
     StringProperty ipProperty, portProperty;
 
-    public Ip_PortController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/JavaFX Components/ip-port.fxml"));
+    public ConnectController() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/app/components/connect.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 

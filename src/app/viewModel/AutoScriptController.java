@@ -1,9 +1,7 @@
-package sample.viewModel;
+package app.viewModel;
 
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextArea;
@@ -11,15 +9,15 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
-public class Display_ScriptController extends Pane {
+public class AutoScriptController extends Pane {
 
     Property<String> scriptProperty = new SimpleStringProperty();
 
     @FXML
     private TextArea script;
 
-    public Display_ScriptController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/JavaFX Components/display_script.fxml"));
+    public AutoScriptController() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/app/components/autoScript.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 

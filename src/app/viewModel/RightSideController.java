@@ -1,4 +1,4 @@
-package sample.viewModel;
+package app.viewModel;
 
 import simulator.Simulator;
 import client.Client;
@@ -10,12 +10,12 @@ import javafx.scene.control.SplitPane;
 
 import java.io.IOException;
 
-public class Right_SideController extends SplitPane {
+public class RightSideController extends SplitPane {
 
     @FXML
-    Radio_ButtonsController radioButtons;
+    RadioButtonsController radioButtons;
     @FXML
-    Display_ScriptController displayScript;
+    AutoScriptController displayScript;
     @FXML
     JoystickController joystick;
 
@@ -23,8 +23,8 @@ public class Right_SideController extends SplitPane {
     Property<Boolean> autopilotProperty = new SimpleBooleanProperty();
     Property<Boolean> manualProperty = new SimpleBooleanProperty();
 
-    public Right_SideController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/JavaFX Components/right_side.fxml"));
+    public RightSideController() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/app/components/rightSide.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try {

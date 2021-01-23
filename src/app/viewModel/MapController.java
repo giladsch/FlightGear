@@ -1,4 +1,4 @@
-package sample.viewModel;
+package app.viewModel;
 
 import client.Client;
 import javafx.beans.property.Property;
@@ -14,7 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import sample.Model.PTMClient;
+import app.model.Solver;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,7 +23,7 @@ import java.io.IOException;
 public class MapController extends Pane {
 
     @FXML
-    MapDisplayer mapCanvas;
+    MapContainer mapContainer;
     @FXML
     Button load;
     @FXML
@@ -33,7 +33,7 @@ public class MapController extends Pane {
     Property<Boolean> enableProperty;
 
     public MapController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/JavaFX Components/map.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/app/components/map.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
@@ -50,7 +50,7 @@ public class MapController extends Pane {
 
         enableProperty.addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                mapCanvas.setDisable(false);
+                mapContainer.setDisable(false);
                 load.setDisable(false);
                 calc.setDisable(false);
             }
@@ -60,11 +60,11 @@ public class MapController extends Pane {
 
     public void readCSV(File fileCSV) {
         try {
-            mapCanvas.setMapData(fileCSV);
+            mapContainer.setMapData(fileCSV);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        mapCanvas.redraw();
+        mapContainer.redraw();
     }
 
     @FXML
@@ -79,7 +79,7 @@ public class MapController extends Pane {
 
     @FXML
     public void connectToServer(MouseEvent mouseEvent) {
-        Ip_PortController root = new Ip_PortController();
+        ConnectController root = new ConnectController();
         Stage stage = new Stage();
         stage.setTitle("Enter IP and Port");
         stage.setScene(new Scene(root));
@@ -92,7 +92,7 @@ public class MapController extends Pane {
             String ip = ipProperty.get();
             String port = newValue;
             this.client.connect(ip, Integer.parseInt(port));
-            mapCanvas.connectToServer(this.client);
+            mapContainer.connectToServer(this.client);
             enableProperty.setValue(true);
 
         });
@@ -105,7 +105,7 @@ public class MapController extends Pane {
 
     public void selectDestination(MouseEvent mouseEvent) {
         isclick = true;
-        mapCanvas.markDestByMouse(mouseEvent.getX(), mouseEvent.getY());
+        mapContainer.markDestByMouse(mouseEvent.getX(), mouseEvent.getY());
         if (flag) {
             calcPath(ipProperty.get(), portProperty.get());
         }
@@ -113,7 +113,7 @@ public class MapController extends Pane {
 
     public void calcPath(MouseEvent mouseEvent) {
         if (!flag) {
-            Ip_PortController root = new Ip_PortController();
+            ConnectController root = new ConnectController();
             Stage stage = new Stage();
             stage.setTitle("Enter IP and Port");
             stage.setScene(new Scene(root));
@@ -136,13 +136,13 @@ public class MapController extends Pane {
         if (!isclick)
             return;
         try {
-            PTMClient ptmClient = new PTMClient(ip, Integer.parseInt(port));
-            double[][] doubles = mapCanvas.getCoordinates();
-            String ans = ptmClient.sendMatrix(doubles, (int) mapCanvas.planeCanvas.getPlaneY(),
-                    (int) mapCanvas.planeCanvas.getPlaneX(), (int) mapCanvas.xCanvas.getDestY(),
-                    (int) mapCanvas.xCanvas.getDestX());
-            ptmClient.close();
-            mapCanvas.showPoints(ans);
+            Solver solver = new Solver(ip, Integer.parseInt(port));
+            double[][] doubles = mapContainer.getCoordinates();
+            String ans = solver.sendMatrix(doubles, (int) mapContainer.planeComponent.getPlaneY(),
+                    (int) mapContainer.planeComponent.getPlaneX(), (int) mapContainer.xButton.getDestY(),
+                    (int) mapContainer.xButton.getDestX());
+            solver.close();
+            mapContainer.showPoints(ans);
         } catch (IOException e) {
             e.printStackTrace();
         }

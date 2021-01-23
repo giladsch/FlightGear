@@ -1,4 +1,4 @@
-package sample.viewModel;
+package app.viewModel;
 
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -14,14 +14,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.stream.Stream;
 
-public class Radio_ButtonsController extends Pane {
+public class RadioButtonsController extends Pane {
 
     Property<String> scriptProperty = new SimpleStringProperty();
     Property<Boolean> autopilotProperty = new SimpleBooleanProperty();
     Property<Boolean> manualProperty = new SimpleBooleanProperty();
 
-    public Radio_ButtonsController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/JavaFX Components/radio_buttons.fxml"));
+    public RadioButtonsController() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/app/components/radioButtons.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try {

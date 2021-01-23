@@ -1,35 +1,35 @@
-package sample.viewModel;
+package app.viewModel;
 
 import client.Client;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import sample.Model.Index;
-import sample.view.*;
+import app.model.Cell;
+import app.view.*;
 
 import java.io.*;
 import java.util.*;
 
-public class MapDisplayer extends Pane {
+public class MapContainer extends Pane {
     @FXML
-    MapCanvas mapCanvas;
+    MapComponent mapComponent;
 
     @FXML
-    PlaneCanvas planeCanvas;
+    PlaneComponent planeComponent;
 
     @FXML
-    XCanvas xCanvas;
+    XButton xButton;
 
     @FXML
-    PointCanvas pointCanvas;
+    CellComponent cellComponent;
 
     double initX, initY;
     double distance;
     Client client;
 
-    public MapDisplayer() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/JavaFX Components/map_canvass.fxml"));
+    public MapContainer() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/app/components/mapContainer.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
@@ -38,9 +38,9 @@ public class MapDisplayer extends Pane {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        planeCanvas.planes = getPlanesImages();
-        planeCanvas.currentPlane = planeCanvas.planes[0];
-        xCanvas.img = getXImage();
+        planeComponent.planes = getPlanesImages();
+        planeComponent.currentPlane = planeComponent.planes[0];
+        xButton.img = getXImage();
     }
 
     public void setMapData(File fileCSV) throws FileNotFoundException {
@@ -75,38 +75,38 @@ public class MapDisplayer extends Pane {
         this.initX = x;
         this.initY = y;
         this.distance = distance;
-        double widthBlock = (mapCanvas.getWidth()) / coordinates[0].length;
-        double heightBlock = (mapCanvas.getHeight()) / coordinates.length;
-        mapCanvas.setCoordinates(coordinates);
-        planeCanvas.setBlockSize(widthBlock, heightBlock);
-        xCanvas.setBlockSize(widthBlock, heightBlock);
-        pointCanvas.setBlockSize(widthBlock, heightBlock);
+        double widthBlock = (mapComponent.getWidth()) / coordinates[0].length;
+        double heightBlock = (mapComponent.getHeight()) / coordinates.length;
+        mapComponent.setCoordinates(coordinates);
+        planeComponent.setBlockSize(widthBlock, heightBlock);
+        xButton.setBlockSize(widthBlock, heightBlock);
+        cellComponent.setBlockSize(widthBlock, heightBlock);
     }
 
     public void redraw() {
-        mapCanvas.redraw();
+        mapComponent.redraw();
     }
 
     public void showPoints(String movesSt) {
-        pointCanvas.showPoints(movesSt, (int) planeCanvas.getPlaneX(), (int) planeCanvas.getPlaneY());
-        pointCanvas.redraw();
-        LinkedList<Index> indexs = pointCanvas.getIndexs();
-        for (int i = 1; i < indexs.size(); i++) {
-            double v = 90 - Math.toDegrees(Math.atan2(indexs.get(i).column - indexs.get(i - 1).column,
-                    indexs.get(i).row - indexs.get(i - 1).row));
+        cellComponent.showPoints(movesSt, (int) planeComponent.getPlaneX(), (int) planeComponent.getPlaneY());
+        cellComponent.redraw();
+        LinkedList<Cell> cells = cellComponent.getCells();
+        for (int i = 1; i < cells.size(); i++) {
+            double v = 90 - Math.toDegrees(
+                    Math.atan2(cells.get(i).column - cells.get(i - 1).column, cells.get(i).row - cells.get(i - 1).row));
             if (v < 0)
                 v += 360;
         }
     }
 
     public void movePlane(double posX, double posY) {
-        planeCanvas.setPlaneCoordinate(posX, posY);
-        planeCanvas.redraw();
+        planeComponent.setPlaneCoordinate(posX, posY);
+        planeComponent.redraw();
     }
 
     public void markDestByMouse(double posX, double posY) {
-        xCanvas.markDestByMouse(posX, posY);
-        xCanvas.redraw();
+        xButton.markDestByMouse(posX, posY);
+        xButton.redraw();
     }
 
     public void connectToServer(final Client client) {
@@ -120,14 +120,14 @@ public class MapDisplayer extends Pane {
                 Double heading = client.getValue("/instrumentation/heading-indicator/indicated-heading-deg");
                 double x = (lon - initX + distance) / distance;
                 double y = (((lat - initY + distance) / distance));
-                planeCanvas.setHeading(heading);
+                planeComponent.setHeading(heading);
                 movePlane(x, y * -1);
             }
         }, 1000, 250);
     }
 
     public double[][] getCoordinates() {
-        return mapCanvas.getCoordinates();
+        return mapComponent.getCoordinates();
     }
 
     private Image[] getPlanesImages() {
@@ -140,10 +140,10 @@ public class MapDisplayer extends Pane {
     }
 
     private Image getPlanesImage(String imageName) {
-        return new Image(getClass().getResourceAsStream("/sample/images/planes/plane-" + imageName + ".jpg"));
+        return new Image(getClass().getResourceAsStream("/assets/images/planes/plane-" + imageName + ".jpg"));
     }
 
     private Image getXImage() {
-        return new Image(getClass().getResourceAsStream("/sample/images/x.jpg"));
+        return new Image(getClass().getResourceAsStream("/assets/images/x.jpg"));
     }
 }

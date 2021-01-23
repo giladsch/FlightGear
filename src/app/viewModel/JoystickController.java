@@ -1,4 +1,4 @@
-package sample.viewModel;
+package app.viewModel;
 
 import client.Client;
 import javafx.fxml.FXML;
@@ -31,7 +31,7 @@ public class JoystickController extends Pane {
     private double initializedCenterY = 0;
 
     public JoystickController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/JavaFX Components/joystick.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/app/components/joystick.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
