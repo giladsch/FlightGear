@@ -1,15 +1,15 @@
-package sample.Model;
+package app.model;
 
-public class Index {
+public class Cell {
     public final int row;
     public final int column;
 
-    public Index(int row, int column) {
+    public Cell(int row, int column) {
         this.row = row;
         this.column = column;
     }
 
-    public Index(String index) {
+    public Cell(String index) {
         String[] split = index.split(",");
         this.row = Integer.parseInt(split[0]);
         this.column = Integer.parseInt(split[1]);
